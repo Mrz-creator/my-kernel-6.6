@@ -1,0 +1,8 @@
+&sdmmc {
+    max-frequency = <100000000>;
+    rockchip,use-v2-tuning;
+};
+
+&emmc {
+    /delete-property/ rockchip,use-v2-tuning;
+};

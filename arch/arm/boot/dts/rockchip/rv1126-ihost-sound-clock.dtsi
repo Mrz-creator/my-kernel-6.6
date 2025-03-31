@@ -1,0 +1,5 @@
+&rk809 {
+    rtc {
+        status = "disabled";
+    };
+};

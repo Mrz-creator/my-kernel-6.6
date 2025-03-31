@@ -1,0 +1,24 @@
+&rkcif_mipi_lvds {
+    status = "disabled";
+};
+
+&rkcif_dvp {
+    status = "disabled";
+};
+
+&cam_ircut0 {
+    status = "okay";
+};
+
+&ov4689 {
+    /delete-property/ reset-gpios;
+};
+
+&os04a10 {
+    /delete-property/ reset-gpios;
+};
+
+/delete-node/ &imx415;
+/delete-node/ &imx335;
+/delete-node/ &mipi_in_ucam2;
+/delete-node/ &mipi_in_ucam3;
