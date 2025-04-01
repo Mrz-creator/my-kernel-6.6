@@ -45,17 +45,6 @@
 		pinctrl-0 = <&wifi_enable_h>;
 		reset-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;
 	};
-
-	wireless_wlan: wireless-wlan {
-		compatible = "wlan-platdata";
-		rockchip,grf = <&grf>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&wifi_wake_host>;
-		wifi_chip_type = "rtl8723ds";
-		/* WIFI,poweren_gpio = <&gpio0 RK_PA6 GPIO_ACTIVE_HIGH>; */
-		WIFI,host_wake_irq = <&gpio1 RK_PD1 GPIO_ACTIVE_LOW>;
-		status = "okay";
-	};
 };
 
 &cpu0 {
@@ -346,15 +335,8 @@
 	};
 
 	wifi {
-		wifi_wake_host: {
-			rockchip,pins = <1 RK_PD1 0 &pcfg_pull_up>;
-		};
-
-		&sdio_pwrseq {
-			reset-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;
-			wifi_enable_h: wifi-enable-h {
-				rockchip,pins = <1 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
-			};
+		wifi_enable_h: wifi-enable-h {
+			rockchip,pins = <1 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 };
@@ -387,7 +369,6 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc1_clk &sdmmc1_cmd &sdmmc1_bus4>;
 	rockchip,default-sample-phase = <90>;
-	supports-sdio;
 	vmmc-supply = <&vcc3v3_sd>;
 	vqmmc-supply = <&vcc_1v8>;
 	status = "okay";
@@ -406,7 +387,6 @@
 	sd-uhs-sdr104;
 	max-frequency = <100000000>;
 	rockchip,use-v2-tuning;
-	supports-sd;
 	vqmmc-supply = <&vccio_sd>;
  	vmmc-supply = <&vcc3v3_sd>;
 
