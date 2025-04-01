@@ -75,8 +75,6 @@
 	status = "okay";
 };
 
-//power
-
 &i2c0 {
 	clock-frequency = <400000>;
 	status = "okay";
@@ -290,8 +288,6 @@
 	};
 };
 
-//cubec eth
-
 &gmac {
     assigned-clocks = <&cru CLK_GMAC_SRC_M1>, <&cru CLK_GMAC_SRC>, <&cru CLK_GMAC_TX_RX>;
     assigned-clock-parents = <&cru CLK_GMAC_RGMII_M1>, <&cru CLK_GMAC_SRC_M1>, <&cru RMII_MODE_CLK>;
@@ -316,10 +312,6 @@
 		snps,reset-gpio = <&gpio2 RK_PA6 GPIO_ACTIVE_LOW>; 
 	};
 };
-
-//cubec wifibt
-
-
 
 &pinctrl {
 	ethernet {
@@ -366,6 +358,7 @@
 		};
 	};
 };
+
 &pmu_io_domains {
     pmuio0-supply = <&vcc3v3_sys>;
     pmuio1-supply = <&vcc3v3_sys>;
@@ -379,7 +372,6 @@
 	status = "okay";
 };
 
-//sd
 &saradc {
 	vref-supply = <&vcc_1v8>;
 	status = "okay";
