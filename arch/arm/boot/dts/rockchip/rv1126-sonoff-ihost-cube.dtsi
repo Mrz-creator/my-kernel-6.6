@@ -12,8 +12,6 @@
 		mmc2 = &sdmmc;
 	};
 
-	model = "Rockchip RV1126 EVB DDR3 V13 Board";
-
 	chosen {
 		bootargs = "earlycon=uart8250,mmio32,0xff570000 console=ttyFIQ0 root=PARTUUID=614e0000-0000 rootwait snd_aloop.index=7";
 		stdout-path = "serial2:1500000n8";
