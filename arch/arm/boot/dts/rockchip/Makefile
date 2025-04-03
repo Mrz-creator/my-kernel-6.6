@@ -7,7 +7,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
 	rv1126-edgeble-neu2-io.dtb \
 	rv1126-sonoff-ihost.dtb \
 	rv1126-sonoff-ihost-cube.dtb \
-	rv1126-ihost.dts \
+	rv1126-ihost.dtb \
 	rk3036-evb.dtb \
 	rk3036-kylin.dtb \
 	rk3066a-bqcurie2.dtb \
