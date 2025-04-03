@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2020 Rockchip Electronics Co., Ltd.
+ */
+
+#include "rv1126-ihost-eth.dtsi"
+#include "rv1126-ihost-wlan.dtsi"
+#include "rv1126-ihost-power.dtsi"
+#include "rv1126-ihost-ble.dtsi"
+#include "rv1126-ihost-zigbee.dtsi"
+#include "rv1126-ihost-yc1175.dtsi"
+#include "rv1126-ihost-usb.dtsi"
+#include "rv1126-ihost-safe-start.dtsi"
+#include "rv1126-ihost-safe-storage.dtsi"
+#include "rv1126-ihost-backlight.dtsi"
+#include "rv1126-ihost-cpu.dtsi"
+#include "rv1126-ihost-sound-clock.dtsi"
+#include "rv1126-ihost-uart.dtsi"
+
+#include "rv1126-ihost-adc.dtsi"
+#include "rv1126-ihost-camera.dtsi"
+#include "rv1126-ihost-i2c.dtsi"
+#include "rv1126-ihost-rng.dtsi"
+#include "rv1126-ihost-vcc-dovdd.dtsi"
+#include "rv1126-ihost-vcc18_lcd_n.dtsi"
+#include "rv1126-ihost-wdt.dtsi"

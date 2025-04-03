@@ -1,0 +1,4 @@
+&backlight {
+    status = "disabled";
+    /delete-property/ pwms;
+};

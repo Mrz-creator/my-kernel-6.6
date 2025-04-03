@@ -1,0 +1,7 @@
+&uart3 {
+        wakeup-source;
+        dma-names = "!tx", "!rx";
+        clock-frequency = <1843200>;
+        pinctrl-0 = <&uart3m2_xfer>;
+        status = "okay";
+};

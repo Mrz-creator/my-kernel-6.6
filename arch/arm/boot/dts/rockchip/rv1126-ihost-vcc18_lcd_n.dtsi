@@ -1,0 +1,3 @@
+&vcc18_lcd_n {
+    status = "disabled";
+};

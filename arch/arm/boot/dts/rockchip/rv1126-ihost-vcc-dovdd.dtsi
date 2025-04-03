@@ -1,0 +1,3 @@
+&vcc_dovdd {
+    regulator-always-on;
+};

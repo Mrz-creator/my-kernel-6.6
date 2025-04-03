@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2020 Rockchip Electronics Co., Ltd.
+ */
+
+&gmac {
+    phy-mode = "rmii";  
+    clock_in_out = "output";
+    snps,reset-gpio = <&gpio2 RK_PA6 GPIO_ACTIVE_LOW>; 
+    snps,reset-active-low;
+    snps,reset-delays-us = <0 50000 10000>;
+    assigned-clocks = <&cru CLK_GMAC_SRC_M1>, <&cru CLK_GMAC_SRC>, <&cru CLK_GMAC_TX_RX>;
+    assigned-clock-rates = <0>, <50000000>;
+    assigned-clock-parents = <&cru CLK_GMAC_RGMII_M1>, <&cru CLK_GMAC_SRC_M1>, <&cru RMII_MODE_CLK>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&rmiim1_miim &rgmiim1_rxer &rmiim1_bus2 &rgmiim1_mclkinout>;
+    phy-handle = <&phy>;
+    status = "okay";
+
+    /delete-property/ tx_delay;
+    /delete-property/ rx_delay;
+};
+
+&phy {
+    /delete-property/ clocks;
+};

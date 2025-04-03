@@ -1,0 +1,31 @@
+&wireless_wlan {
+    compatible = "wlan-platdata";
+    rockchip,grf = <&grf>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&wifi_wake_host>;
+    wifi_chip_type = "rtl8723ds";
+    WIFI,host_wake_irq = <&gpio1 RK_PD1 GPIO_ACTIVE_LOW>;
+    status = "okay";
+
+    /delete-property/ clocks;
+    /delete-property/ clock-names;
+};
+
+
+&wifi_wake_host {
+    rockchip,pins = <1 RK_PD1 0 &pcfg_pull_up>;
+};
+
+&wifi_enable_h {
+    rockchip,pins = <1 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
+};
+
+&sdio_pwrseq {
+    reset-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;
+};
+
+&sdio {
+    max-frequency = <25000000>;
+    /delete-property/ cap-sd-highspeed;
+    /delete-property/ sd-uhs-sdr104;
+};

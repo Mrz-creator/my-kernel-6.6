@@ -1,0 +1,8 @@
+&uart1 {
+    clock-frequency = <1843200>;
+    pinctrl-0 = <&uart1m0_xfer>;
+};
+
+&uart5 {
+    /delete-property/ rockchip,use-v2-tuning;
+};
