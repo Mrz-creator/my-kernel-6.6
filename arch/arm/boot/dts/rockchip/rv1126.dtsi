@@ -21,13 +21,22 @@
 
 	aliases {
 		i2c0 = &i2c0;
+		i2c1 = &i2c1;
 		i2c2 = &i2c2;
+		i2c3 = &i2c3;
+		i2c4 = &i2c4;
+		i2c5 = &i2c5;
+		mmc0 = &emmc;
+		mmc1 = &sdio;
+		mmc2 = &sdmmc;
 		serial0 = &uart0;
 		serial1 = &uart1;
 		serial2 = &uart2;
 		serial3 = &uart3;
 		serial4 = &uart4;
 		serial5 = &uart5;
+		spi0 = &spi0;
+		spi1 = &spi1;
 	};
 
 	cpus {
@@ -40,6 +49,10 @@
 			reg = <0xf00>;
 			enable-method = "psci";
 			clocks = <&cru ARMCLK>;
+			operating-points-v2 = <&cpu0_opp_table>;
+			dynamic-power-coefficient = <60>;
+			#cooling-cells = <2>;
+			cpu-idle-states = <&CPU_SLEEP>;
 		};
 
 		cpu1: cpu@f01 {
@@ -48,6 +61,9 @@
 			reg = <0xf01>;
 			enable-method = "psci";
 			clocks = <&cru ARMCLK>;
+			operating-points-v2 = <&cpu0_opp_table>;
+			dynamic-power-coefficient = <60>;
+			cpu-idle-states = <&CPU_SLEEP>;
 		};
 
 		cpu2: cpu@f02 {
@@ -56,6 +72,9 @@
 			reg = <0xf02>;
 			enable-method = "psci";
 			clocks = <&cru ARMCLK>;
+			operating-points-v2 = <&cpu0_opp_table>;
+			dynamic-power-coefficient = <60>;
+			cpu-idle-states = <&CPU_SLEEP>;
 		};
 
 		cpu3: cpu@f03 {
@@ -64,7 +83,129 @@
 			reg = <0xf03>;
 			enable-method = "psci";
 			clocks = <&cru ARMCLK>;
+			operating-points-v2 = <&cpu0_opp_table>;
+			dynamic-power-coefficient = <60>;
+			cpu-idle-states = <&CPU_SLEEP>;
 		};
+
+		idle-states {
+			entry-method = "psci";
+
+			CPU_SLEEP: cpu-sleep {
+				compatible = "arm,idle-state";
+				local-timer-stop;
+				arm,psci-suspend-param = <0x0010000>;
+				entry-latency-us = <120>;
+				exit-latency-us = <250>;
+				min-residency-us = <900>;
+			};
+		};
+
+	};
+
+	cpu0_opp_table: cpu0-opp-table {
+		compatible = "operating-points-v2";
+		opp-shared;
+
+		nvmem-cells = <&cpu_leakage>, <&cpu_performance>;
+		nvmem-cell-names = "leakage", "performance";
+
+		rockchip,reboot-freq = <816000>;
+
+		rockchip,temp-freq-table = <
+			100000	1296000
+		>;
+
+		clocks = <&cru PLL_APLL>;
+		rockchip,bin-scaling-sel = <
+			0	5
+			1	18
+		>;
+		rockchip,bin-voltage-sel = <
+			1	0
+		>;
+		rockchip,pvtm-voltage-sel = <
+			0        106000   1
+			106001   112000   2
+			112001   999999   3
+		>;
+		rockchip,pvtm-freq = <408000>;
+		rockchip,pvtm-volt = <800000>;
+		rockchip,pvtm-ch = <0 0>;
+		rockchip,pvtm-sample-time = <1000>;
+		rockchip,pvtm-number = <10>;
+		rockchip,pvtm-error = <1000>;
+		rockchip,pvtm-ref-temp = <37>;
+		rockchip,pvtm-temp-prop = <(-40) 13>;
+		rockchip,pvtm-thermal-zone = "cpu-thermal";
+
+		opp-408000000 {
+			opp-hz = /bits/ 64 <408000000>;
+			opp-microvolt = <725000 725000 1000000>;
+			opp-microvolt-L0 = <725000 725000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+		opp-600000000 {
+			opp-hz = /bits/ 64 <600000000>;
+			opp-microvolt = <725000 725000 1000000>;
+			opp-microvolt-L0 = <725000 725000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+		opp-816000000 {
+			opp-hz = /bits/ 64 <816000000>;
+			opp-microvolt = <725000 725000 1000000>;
+			opp-microvolt-L0 = <750000 750000 1000000>;
+			clock-latency-ns = <40000>;
+			opp-suspend;
+		};
+		opp-1008000000 {
+			opp-hz = /bits/ 64 <1008000000>;
+			opp-microvolt = <775000 775000 1000000>;
+			opp-microvolt-L0 = <800000 800000 1000000>;
+			opp-microvolt-L1 = <775000 775000 1000000>;
+			opp-microvolt-L2 = <775000 775000 1000000>;
+			opp-microvolt-L3 = <750000 750000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+		opp-1200000000 {
+			opp-hz = /bits/ 64 <1200000000>;
+			opp-microvolt = <850000 850000 1000000>;
+			opp-microvolt-L0 = <875000 875000 1000000>;
+			opp-microvolt-L1 = <850000 850000 1000000>;
+			opp-microvolt-L2 = <850000 850000 1000000>;
+			opp-microvolt-L3 = <825000 825000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+		opp-1296000000 {
+			opp-hz = /bits/ 64 <1296000000>;
+			opp-microvolt = <875000 875000 1000000>;
+			opp-microvolt-L1 = <875000 875000 1000000>;
+			opp-microvolt-L2 = <875000 875000 1000000>;
+			opp-microvolt-L3 = <850000 850000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+		opp-1416000000 {
+			opp-hz = /bits/ 64 <1416000000>;
+			opp-microvolt = <925000 925000 1000000>;
+			opp-microvolt-L1 = <925000 925000 1000000>;
+			opp-microvolt-L2 = <925000 925000 1000000>;
+			opp-microvolt-L3 = <900000 900000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+		opp-1512000000 {
+			opp-hz = /bits/ 64 <1512000000>;
+			opp-microvolt = <975000 975000 1000000>;
+			opp-microvolt-L1 = <975000 975000 1000000>;
+			opp-microvolt-L2 = <950000 950000 1000000>;
+			opp-microvolt-L3 = <925000 925000 1000000>;
+			clock-latency-ns = <40000>;
+		};
+	};
+
+	cpuinfo {
+		compatible = "rockchip,cpuinfo";
+		nvmem-cells = <&otp_id>, <&otp_cpu_code>;
+		nvmem-cell-names = "id", "cpu-code";
 	};
 
 	arm-pmu {
@@ -115,6 +256,36 @@
 			compatible = "rockchip,rv1126-pmu-io-voltage-domain";
 			status = "disabled";
 		};
+
+		reboot-mode {
+			compatible = "syscon-reboot-mode";
+			offset = <0x200>;
+			mode-bootloader = <BOOT_BL_DOWNLOAD>;
+			mode-charge = <BOOT_CHARGING>;
+			mode-fastboot = <BOOT_FASTBOOT>;
+			mode-loader = <BOOT_BL_DOWNLOAD>;
+			mode-normal = <BOOT_NORMAL>;
+			mode-recovery = <BOOT_RECOVERY>;
+			mode-ums = <BOOT_UMS>;
+			mode-panic = <BOOT_PANIC>;
+			mode-watchdog = <BOOT_WATCHDOG>;
+			mode-dfu = <BOOT_DFU_DOWNLOAD>;
+		};
+	};
+
+	qos_usb_host: qos@fe810000 {
+		compatible = "syscon";
+		reg = <0xfe810000 0x20>;
+	};
+
+	qos_usb_otg: qos@fe810080 {
+		compatible = "syscon";
+		reg = <0xfe810080 0x20>;
+	};
+
+	qos_npu: qos@fe850000 {
+		compatible = "syscon";
+		reg = <0xfe850000 0x20>;
 	};
 
 	qos_emmc: qos@fe860000 {
@@ -135,6 +306,46 @@
 	qos_sdio: qos@fe86c000 {
 		compatible = "rockchip,rv1126-qos", "syscon";
 		reg = <0xfe86c000 0x20>;
+	};
+
+	qos_vepu_rd0: qos@fe870000 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe870000 0x20>;
+	};
+
+	qos_vepu_rd1: qos@fe870080 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe870080 0x20>;
+	};
+
+	qos_vepu_wr: qos@fe870100 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe870100 0x20>;
+	};
+
+	qos_ispp_m0: qos@fe880000 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe880000 0x20>;
+	};
+
+	qos_ispp_m1: qos@fe880080 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe880080 0x20>;
+	};
+
+	qos_isp: qos@fe890000 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe890000 0x20>;
+	};
+
+	qos_cif_lite: qos@fe890080 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe890080 0x20>;
+	};
+
+	qos_cif: qos@fe890100 {
+		compatible = "rockchip,rv1126-qos", "syscon";
+		reg = <0xfe890100 0x20>;
 	};
 
 	qos_iep: qos@fe8a0000 {
