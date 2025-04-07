@@ -2,11 +2,6 @@
 dtb-$(CONFIG_ARCH_ROCKCHIP) += \
 	rv1108-elgin-r1.dtb \
 	rv1108-evb.dtb \
-	rv1109-sonoff-ihost.dtb \
-	rv1109-sonoff-ihost-cube.dtb \
-	rv1126-edgeble-neu2-io.dtb \
-	rv1126-sonoff-ihost.dtb \
-	rv1126-sonoff-ihost-cube.dtb \
 	rv1126-ihost.dtb \
 	rk3036-evb.dtb \
 	rk3036-kylin.dtb \
