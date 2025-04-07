@@ -447,8 +447,7 @@
 	cap-sd-highspeed;
 	card-detect-delay = <200>;
 	rockchip,default-sample-phase = <90>;
-	no-sdio;
-	no-mmc;
+	supports-sd;
 	status = "okay";
 	vmmc-supply = <&vcc_sd>;
 };

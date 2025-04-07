@@ -31,8 +31,8 @@
 		i2c4 = &i2c4;
 		i2c5 = &i2c5;
 		mmc0 = &emmc;
-		mmc1 = &sdmmc;
-		mmc2 = &sdio;
+		mmc1 = &sdio;
+		mmc2 = &sdmmc;
 		serial0 = &uart0;
 		serial1 = &uart1;
 		serial2 = &uart2;

@@ -4,7 +4,7 @@
  */
 
 /dts-v1/;
-#include "rv1109.dtsi"
+#include "rv1126.dtsi"
 #include "rv1126-ipc.dtsi"
 
 / {
@@ -12,7 +12,7 @@
 	compatible = "rockchip,rv1109-38-v10-spi-nand", "rockchip,rv1109";
 
 	chosen {
-		bootargs = "earlycon=uart8250,mmio32,0xff570000 console=ttyFIQ0 ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs snd_aloop.index=7";
+		bootargs = "earlycon=uart8250,mmio32,0xff570000 console=ttyFIQ0 ubi.mtd=3 ubi.block=0,rootfs root=/dev/ubiblock0_0 rootfstype=squashfs snd_aloop.index=7";
 	};
 
 	/delete-node/ vdd-npu;
@@ -208,6 +208,10 @@
 	};
 };
 
+&nandc {
+    status = "okay";
+};
+
 &npu {
 	npu-supply = <&vdd_logic_npu_vepu_fixed>;
 };
@@ -304,8 +308,7 @@
 	cap-sd-highspeed;
 	card-detect-delay = <200>;
 	rockchip,default-sample-phase = <90>;
-	no-sdio;
-	no-mmc;
+	supports-sd;
 	status = "okay";
 	vmmc-supply = <&vcc_sd>;
 };

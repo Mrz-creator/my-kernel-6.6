@@ -12,6 +12,7 @@
 #include "rv1126-ihost-usb.dtsi"
 #include "rv1126-ihost-safe-start.dtsi"
 #include "rv1126-ihost-safe-storage.dtsi"
+#include "rv1126-ihost-backlight.dtsi"
 #include "rv1126-ihost-cpu.dtsi"
 #include "rv1126-ihost-sound-clock.dtsi"
 #include "rv1126-ihost-uart.dtsi"

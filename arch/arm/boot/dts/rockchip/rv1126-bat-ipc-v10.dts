@@ -191,8 +191,7 @@
 	non-removable;
 	mmc-hs200-1_8v;
 	rockchip,default-sample-phase = <90>;
-	no-sdio;
-	no-sd;
+	supports-emmc;
 	/delete-property/ pinctrl-names;
 	/delete-property/ pinctrl-0;
 	status = "okay";
@@ -389,6 +388,14 @@
 	};
 };
 
+&rkisp_vir1 {
+	status = "okay";
+};
+
+&rkispp_vir1 {
+	status = "okay";
+};
+
 &rkvenc {
 	venc-supply = <&vdd_npu_vepu>;
 };
@@ -425,8 +432,7 @@
 	cap-sdio-irq;
 	keep-power-in-suspend;
 	rockchip,default-sample-phase = <90>;
-	no-sd;
-	no-mmc;
+	supports-sdio;
 	supports-chip-alive;
 	logic-remove-card;
 	status = "okay";
@@ -438,8 +444,7 @@
 	cap-sd-highspeed;
 	card-detect-delay = <200>;
 	rockchip,default-sample-phase = <90>;
-	no-sdio;
-	no-mmc;
+	supports-sd;
 	sd-uhs-sdr12;
 	sd-uhs-sdr25;
 	sd-uhs-sdr104;
