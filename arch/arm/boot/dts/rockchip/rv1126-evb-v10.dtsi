@@ -3,6 +3,7 @@
  * Copyright (c) 2019 Fuzhou Rockchip Electronics Co., Ltd.
  */
 
+#include <dt-bindings/display/drm_mipi_dsi.h>
 #include <dt-bindings/input/input.h>
 
 / {
@@ -78,7 +79,7 @@
 	};
 
 	cam_ircut0: cam_ircut {
-		status = "disabled";
+		status = "okay";
 		compatible = "rockchip,ircut";
 		ircut-open-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
 		ircut-close-gpios  = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
@@ -108,14 +109,6 @@
 		simple-audio-card,format = "i2s";
 		simple-audio-card,name = "rockchip,rk809-codec";
 		simple-audio-card,mclk-fs = <256>;
-		simple-audio-card,widgets =
-			"Microphone", "Mic Jack",
-			"Headphone", "Headphone Jack";
-		simple-audio-card,routing =
-			"Mic Jack", "MICBIAS1",
-			"IN1P", "Mic Jack",
-			"Headphone Jack", "HPOL",
-			"Headphone Jack", "HPOR";
 		simple-audio-card,cpu {
 			sound-dai = <&i2s0_8ch>;
 		};
@@ -183,7 +176,7 @@
 		status = "okay";
 	};
 
-	wireless_ble: wireless-bluetooth {
+	wireless-bluetooth {
 		compatible = "bluetooth-platdata";
 		uart_rts_gpios = <&gpio1 RK_PC0 GPIO_ACTIVE_LOW>;
 		pinctrl-names = "default", "rts_gpio";
@@ -220,6 +213,335 @@
 	status = "okay";
 };
 
+&dsi {
+	status = "okay";
+
+	rockchip,lane-rate = <480>;
+	panel@0 {
+		compatible = "ilitek,ili9881d", "simple-panel-dsi";
+		reg = <0>;
+		backlight = <&backlight>;
+		power-supply = <&vcc18_lcd_n>;
+		prepare-delay-ms = <5>;
+		reset-delay-ms = <1>;
+		init-delay-ms = <80>;
+		disable-delay-ms = <10>;
+		unprepare-delay-ms = <5>;
+
+		width-mm = <68>;
+		height-mm = <121>;
+
+		dsi,flags = <(MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+			      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET)>;
+		dsi,format = <MIPI_DSI_FMT_RGB888>;
+		dsi,lanes = <4>;
+
+		panel-init-sequence = [
+			39 00 04 ff 98 81 03
+			15 00 02 01 00
+			15 00 02 02 00
+			15 00 02 03 53
+			15 00 02 04 53
+			15 00 02 05 13
+			15 00 02 06 04
+			15 00 02 07 02
+			15 00 02 08 02
+			15 00 02 09 00
+			15 00 02 0a 00
+			15 00 02 0b 00
+			15 00 02 0c 00
+			15 00 02 0d 00
+			15 00 02 0e 00
+			15 00 02 0f 00
+			15 00 02 10 00
+			15 00 02 11 00
+			15 00 02 12 00
+			15 00 02 13 00
+			15 00 02 14 00
+			15 00 02 15 08
+			15 00 02 16 10
+			15 00 02 17 00
+			15 00 02 18 08
+			15 00 02 19 00
+			15 00 02 1a 00
+			15 00 02 1b 00
+			15 00 02 1c 00
+			15 00 02 1d 00
+			15 00 02 1e c0
+			15 00 02 1f 80
+			15 00 02 20 02
+			15 00 02 21 09
+			15 00 02 22 00
+			15 00 02 23 00
+			15 00 02 24 00
+			15 00 02 25 00
+			15 00 02 26 00
+			15 00 02 27 00
+			15 00 02 28 55
+			15 00 02 29 03
+			15 00 02 2a 00
+			15 00 02 2b 00
+			15 00 02 2c 00
+			15 00 02 2d 00
+			15 00 02 2e 00
+			15 00 02 2f 00
+			15 00 02 30 00
+			15 00 02 31 00
+			15 00 02 32 00
+			15 00 02 33 00
+			15 00 02 34 04
+			15 00 02 35 05
+			15 00 02 36 05
+			15 00 02 37 00
+			15 00 02 38 3c
+			15 00 02 39 35
+			15 00 02 3a 00
+			15 00 02 3b 40
+			15 00 02 3c 00
+			15 00 02 3d 00
+			15 00 02 3e 00
+			15 00 02 3f 00
+			15 00 02 40 00
+			15 00 02 41 88
+			15 00 02 42 00
+			15 00 02 43 00
+			15 00 02 44 1f
+			15 00 02 50 01
+			15 00 02 51 23
+			15 00 02 52 45
+			15 00 02 53 67
+			15 00 02 54 89
+			15 00 02 55 ab
+			15 00 02 56 01
+			15 00 02 57 23
+			15 00 02 58 45
+			15 00 02 59 67
+			15 00 02 5a 89
+			15 00 02 5b ab
+			15 00 02 5c cd
+			15 00 02 5d ef
+			15 00 02 5e 03
+			15 00 02 5f 14
+			15 00 02 60 15
+			15 00 02 61 0c
+			15 00 02 62 0d
+			15 00 02 63 0e
+			15 00 02 64 0f
+			15 00 02 65 10
+			15 00 02 66 11
+			15 00 02 67 08
+			15 00 02 68 02
+			15 00 02 69 0a
+			15 00 02 6a 02
+			15 00 02 6b 02
+			15 00 02 6c 02
+			15 00 02 6d 02
+			15 00 02 6e 02
+			15 00 02 6f 02
+			15 00 02 70 02
+			15 00 02 71 02
+			15 00 02 72 06
+			15 00 02 73 02
+			15 00 02 74 02
+			15 00 02 75 14
+			15 00 02 76 15
+			15 00 02 77 0f
+			15 00 02 78 0e
+			15 00 02 79 0d
+			15 00 02 7a 0c
+			15 00 02 7b 11
+			15 00 02 7c 10
+			15 00 02 7d 06
+			15 00 02 7e 02
+			15 00 02 7f 0a
+			15 00 02 80 02
+			15 00 02 81 02
+			15 00 02 82 02
+			15 00 02 83 02
+			15 00 02 84 02
+			15 00 02 85 02
+			15 00 02 86 02
+			15 00 02 87 02
+			15 00 02 88 08
+			15 00 02 89 02
+			15 00 02 8a 02
+			39 00 04 ff 98 81 04
+			15 00 02 00 80
+			15 00 02 70 00
+			15 00 02 71 00
+			15 00 02 66 fe
+			15 00 02 82 15
+			15 00 02 84 15
+			15 00 02 85 15
+			15 00 02 3a 24
+			15 00 02 32 ac
+			15 00 02 8c 80
+			15 00 02 3c f5
+			15 00 02 88 33
+			39 00 04 ff 98 81 01
+			15 00 02 22 0a
+			15 00 02 31 00
+			15 00 02 53 78
+			15 00 02 55 7b
+			15 00 02 60 20
+			15 00 02 61 00
+			15 00 02 62 0d
+			15 00 02 63 00
+			15 00 02 a0 00
+			15 00 02 a1 10
+			15 00 02 a2 1c
+			15 00 02 a3 13
+			15 00 02 a4 15
+			15 00 02 a5 26
+			15 00 02 a6 1a
+			15 00 02 a7 1d
+			15 00 02 a8 67
+			15 00 02 a9 1c
+			15 00 02 aa 29
+			15 00 02 ab 5b
+			15 00 02 ac 26
+			15 00 02 ad 28
+			15 00 02 ae 5c
+			15 00 02 af 30
+			15 00 02 b0 31
+			15 00 02 b1 32
+			15 00 02 b2 00
+			15 00 02 b1 2e
+			15 00 02 b2 32
+			15 00 02 b3 00
+			15 00 02 c0 00
+			15 00 02 c1 10
+			15 00 02 c2 1c
+			15 00 02 c3 13
+			15 00 02 c4 15
+			15 00 02 c5 26
+			15 00 02 c6 1a
+			15 00 02 c7 1d
+			15 00 02 c8 67
+			15 00 02 c9 1c
+			15 00 02 ca 29
+			15 00 02 cb 5b
+			15 00 02 cc 26
+			15 00 02 cd 28
+			15 00 02 ce 5c
+			15 00 02 cf 30
+			15 00 02 d0 31
+			15 00 02 d1 2e
+			15 00 02 d2 32
+			15 00 02 d3 00
+			39 00 04 ff 98 81 00
+			05 00 01 11
+			05 01 01 29
+		];
+
+		display-timings {
+			native-mode = <&timing0>;
+
+			timing0: timing0 {
+				clock-frequency = <65000000>;
+				hactive = <720>;
+				vactive = <1280>;
+				hfront-porch = <48>;
+				hsync-len = <8>;
+				hback-porch = <52>;
+				vfront-porch = <16>;
+				vsync-len = <6>;
+				vback-porch = <15>;
+				hsync-active = <0>;
+				vsync-active = <0>;
+				de-active = <0>;
+				pixelclk-active = <0>;
+			};
+		};
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				panel_in_dsi: endpoint {
+					remote-endpoint = <&dsi_out_panel>;
+				};
+			};
+		};
+	};
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@1 {
+			reg = <1>;
+			dsi_out_panel: endpoint {
+				remote-endpoint = <&panel_in_dsi>;
+			};
+		};
+	};
+};
+
+&csi_dphy0 {
+	status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			mipi_in_ucam0: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&ucam_out0>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csidphy0_out: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&mipi_csi2_input>;
+			};
+		};
+	};
+};
+
+&csi_dphy1 {
+	status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csi_dphy1_input: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&ucam_out1>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csi_dphy1_output: endpoint@0 {
+				reg = <0>;
+				/*remote-endpoint = <&mipi_csi2_input>;*/
+				data-lanes = <1 2 3 4>;
+			};
+		};
+	};
+};
 
 &emmc {
 	bus-width = <8>;
@@ -227,7 +549,8 @@
 	non-removable;
 	mmc-hs200-1_8v;
 	rockchip,default-sample-phase = <90>;
-	supports-emmc;
+	no-sdio;
+	no-sd;
 	/delete-property/ pinctrl-names;
 	/delete-property/ pinctrl-0;
 	status = "okay";
@@ -539,6 +862,60 @@
 			};
 		};
 	};
+
+	ov4689: ov4689@36 {
+		compatible = "ovti,ov4689";
+		reg = <0x36>;
+		clocks = <&cru CLK_MIPICSI_OUT>;
+		clock-names = "xvclk";
+		power-domains = <&power RV1126_PD_VI>;
+		pinctrl-names = "rockchip,camera_default";
+		pinctrl-0 = <&mipicsi_clk1>;
+		/*pinctrl-0 = <&mipicsi_clk0>;*/
+		avdd-supply = <&vcc_avdd>;
+		dovdd-supply = <&vcc_dovdd>;
+		dvdd-supply = <&vcc_dvdd>;
+		pwdn-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
+		/*pwdn-gpios = <&gpio1 RK_PD4 GPIO_ACTIVE_HIGH>;*/
+		rockchip,camera-module-index = <1>;
+		rockchip,camera-module-facing = "front";
+		rockchip,camera-module-name = "JSD3425-C1";
+		rockchip,camera-module-lens-name = "JSD3425-C1";
+		/* NO_HDR:0 HDR_X2:5 HDR_X3:6 */
+		rockchip,camera-hdr-mode = <0>;
+		port {
+			ucam_out1: endpoint {
+				remote-endpoint = <&csi_dphy1_input>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+
+	};
+
+	os04a10: os04a10@36 {
+		compatible = "ovti,os04a10";
+		reg = <0x36>;
+		clocks = <&cru CLK_MIPICSI_OUT>;
+		clock-names = "xvclk";
+		power-domains = <&power RV1126_PD_VI>;
+		pinctrl-names = "rockchip,camera_default";
+		pinctrl-0 = <&mipicsi_clk0>;
+		avdd-supply = <&vcc_avdd>;
+		dovdd-supply = <&vcc_dovdd>;
+		dvdd-supply = <&vcc_dvdd>;
+		pwdn-gpios = <&gpio1 RK_PD4 GPIO_ACTIVE_HIGH>;
+		rockchip,camera-module-index = <1>;
+		rockchip,camera-module-facing = "front";
+		rockchip,camera-module-name = "CMK-OT1607-FV1";
+		rockchip,camera-module-lens-name = "M12-40IRC-4MP-F16";
+		ir-cut = <&cam_ircut0>;
+		port {
+			ucam_out0: endpoint {
+				remote-endpoint = <&mipi_in_ucam0>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+	};
 };
 
 &i2c5 {
@@ -558,7 +935,7 @@
 &i2s0_8ch {
 	status = "okay";
 	#sound-dai-cells = <0>;
-	rockchip,clk-trcm = <1>;
+	rockchip,trcm-sync-tx-only;
 	rockchip,i2s-rx-route = <3 1 2 0>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2s0m0_sclk_tx
@@ -581,6 +958,43 @@
 		reg = <0x0>;
 		clocks = <&cru CLK_GMAC_ETHERNET_OUT>;
 	};
+};
+
+&mipi_csi2 {
+	status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			mipi_csi2_input: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&csidphy0_out>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			mipi_csi2_output: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&cif_mipi_in>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+	};
+};
+
+&mipi_dphy {
+	status = "okay";
 };
 
 &mpp_srv {
@@ -647,13 +1061,13 @@
 		/omit-if-no-ref/
 		soc_slppin_slp: soc_slppin_slp {
 			rockchip,pins =
-				<0 RK_PB2 RK_FUNC_1 &pcfg_pull_none>;
+				<0 RK_PB2 1 &pcfg_pull_none>;
 		};
 
 		/omit-if-no-ref/
 		soc_slppin_rst: soc_slppin_rst {
 			rockchip,pins =
-				<0 RK_PB2 RK_FUNC_2 &pcfg_pull_none>;
+				<0 RK_PB2 2 &pcfg_pull_none>;
 		};
 	};
 
@@ -667,7 +1081,7 @@
 	wireless-wlan {
 		/omit-if-no-ref/
 		wifi_wake_host: wifi-wake-host {
-			rockchip,pins = <0 RK_PB0 0 &pcfg_pull_up>;
+			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
 };
@@ -733,6 +1147,86 @@
 	};
 };
 
+&rkcif_mipi_lvds {
+	status = "okay";
+
+	port {
+		/* MIPI CSI-2 endpoint */
+		cif_mipi_in: endpoint {
+			remote-endpoint = <&mipi_csi2_output>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&rkcif_mipi_lvds_sditf {
+	status = "okay";
+
+	port {
+		/* MIPI CSI-2 endpoint */
+		mipi_lvds_sditf: endpoint {
+			remote-endpoint = <&isp_in>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&rkisp {
+	status = "okay";
+};
+
+&rkisp_vir0 {
+	status = "okay";
+
+	ports {
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			isp_in: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&mipi_lvds_sditf>;
+			};
+		};
+	};
+};
+
+&rkisp_mmu {
+	status = "disabled";
+};
+
+&rkispp {
+	status = "okay";
+	/* the max input w h and fps of mulit sensor */
+	//max-input = <2688 1520 30>;
+};
+
+&rkispp_vir0 {
+	status = "okay";
+};
+
+&rkispp_mmu {
+	status = "okay";
+};
+
+&rkvdec {
+	status = "okay";
+};
+
+&rkvdec_mmu {
+	status = "okay";
+};
+
+&rkvenc {
+	venc-supply = <&vdd_vepu>;
+	status = "okay";
+};
+
+&rkvenc_mmu {
+	status = "okay";
+};
+
 &rng {
 	status = "okay";
 };
@@ -770,7 +1264,8 @@
 	cap-sd-highspeed;
 	card-detect-delay = <200>;
 	rockchip,default-sample-phase = <90>;
-	supports-sd;
+	no-sdio;
+	no-mmc;
 	sd-uhs-sdr12;
 	sd-uhs-sdr25;
 	sd-uhs-sdr104;
@@ -788,7 +1283,8 @@
 	non-removable;
 	rockchip,default-sample-phase = <90>;
 	sd-uhs-sdr104;
-	supports-sdio;
+	no-sd;
+	no-mmc;
 	mmc-pwrseq = <&sdio_pwrseq>;
 	status = "okay";
 };
@@ -797,6 +1293,14 @@
 	/delete-property/ pinctrl-names;
 	/delete-property/ pinctrl-0;
 	status = "okay";
+
+	flash@0 {
+		compatible = "spi-nand";
+		reg = <0>;
+		spi-max-frequency = <80000000>;
+		spi-rx-bus-width = <4>;
+		spi-tx-bus-width = <1>;
+	};
 };
 
 &u2phy0 {

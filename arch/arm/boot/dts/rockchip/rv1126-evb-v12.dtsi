@@ -36,6 +36,14 @@
 	};
 };
 
+&ov4689 {
+	reset-gpios = <&gpio2 RK_PA0 GPIO_ACTIVE_LOW>;
+};
+
+&os04a10 {
+	reset-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_LOW>;
+};
+
 &npu {
 	npu-supply = <&vdd_npu_vepu>;
 };
@@ -46,4 +54,18 @@
 
 &pwm1 {
 	status = "disabled";
+};
+
+&rkvenc {
+	venc-supply = <&vdd_npu_vepu>;
+};
+
+&rkvenc_opp_table {
+	/*
+	 * max IR-drop values on different freq condition for this board!
+	 */
+	rockchip,board-irdrop = <
+	     /* MHz	MHz	uV */
+		500	594	50000
+	>;
 };
