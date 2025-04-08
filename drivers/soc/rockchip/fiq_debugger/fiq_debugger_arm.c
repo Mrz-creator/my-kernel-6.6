@@ -183,21 +183,35 @@ struct stacktrace_state {
 	unsigned int depth;
 };
 
-static bool report_trace(struct stackframe *frame, void *d)
+// static bool report_trace(struct stackframe *frame, void *d)
+// {
+// 	struct stacktrace_state *sts = d;
+
+// 	if (sts->depth) {
+// 		sts->output->printf(sts->output,
+// 			"  pc: %px (%pS), lr %px (%pS), sp %px, fp %px\n",
+// 			frame->pc, frame->pc, frame->lr, frame->lr,
+// 			frame->sp, frame->fp);
+// 		sts->depth--;
+// 		return false;
+// 	}
+// 	sts->output->printf(sts->output, "  ...\n");
+
+// 	return sts->depth == 0;
+// }
+
+static bool report_trace(void *data, unsigned long pc)
 {
-	struct stacktrace_state *sts = d;
+	struct stacktrace_state *sts = data;
 
 	if (sts->depth) {
-		sts->output->printf(sts->output,
-			"  pc: %px (%pS), lr %px (%pS), sp %px, fp %px\n",
-			frame->pc, frame->pc, frame->lr, frame->lr,
-			frame->sp, frame->fp);
+		sts->output->printf(sts->output, "[<%016lx>] %pS:\n", pc, pc);
 		sts->depth--;
-		return false;
+		return true;
 	}
 	sts->output->printf(sts->output, "  ...\n");
 
-	return sts->depth == 0;
+	return sts->depth != 0;
 }
 
 #ifndef CONFIG_FIQ_DEBUGGER_MODULE
