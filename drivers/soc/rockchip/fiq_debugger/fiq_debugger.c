@@ -1208,7 +1208,7 @@ void fiq_tty_wake_up(struct platform_device *pdev)
 }
 EXPORT_SYMBOL_GPL(fiq_tty_wake_up);
 
-static int fiq_tty_write(struct tty_struct *tty, const unsigned char *buf, int count)
+static int fiq_tty_write(struct tty_struct *tty, const unsigned char *buf, size_t count)
 {
 	int i;
 	int line = tty->index;

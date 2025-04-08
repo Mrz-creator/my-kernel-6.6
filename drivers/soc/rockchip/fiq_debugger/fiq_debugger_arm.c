@@ -263,7 +263,7 @@ void fiq_debugger_dump_stacktrace(struct fiq_debugger_output *output,
 		frame.lr = regs->ARM_lr;
 		frame.pc = regs->ARM_pc;
 		output->printf(output, "\n");
-		walk_stackframe(&frame, report_trace, &sts);
+		walk_stackframe(&frame, (bool)report_trace, &sts);
 		return;
 	}
 
